@@ -1,36 +1,247 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏞️ Descubre Boyacá - Frontend
 
-## Getting Started
+Plataforma web para explorar destinos, eventos y gastronomía de Boyacá, Colombia.
 
-First, run the development server:
+Construido con **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS** y **Zustand**.
+
+---
+
+## 🚀 Inicio Rápido
+
+### **Prerrequisitos**
+- Node.js 20+
+- npm o yarn
+
+### **Instalación**
 
 ```bash
+# Instalar dependencias
+npm install
+
+# Ejecutar en modo desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Estructura del Proyecto
 
-## Learn More
+```
+src/
+├── app/              # Rutas y páginas (Next.js App Router)
+├── components/       # Componentes reutilizables
+│   ├── ui/          # Componentes UI básicos (Button, Card)
+│   └── layout/      # Header, Footer
+├── hooks/           # Custom React Hooks
+├── store/           # Estado global (Zustand)
+└── ...
+```
 
-To learn more about Next.js, take a look at the following resources:
+Ver [ARCHITECTURE.md](./ARCHITECTURE.md) para documentación detallada.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Tecnologías
 
-## Deploy on Vercel
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **UI**: [React 19](https://react.dev/)
+- **Lenguaje**: [TypeScript](https://www.typescriptlang.org/)
+- **Estilos**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Estado**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Lint**: ESLint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Scripts Disponibles
+
+```bash
+# Desarrollo
+npm run dev          # Servidor de desarrollo
+
+# Producción
+npm run build        # Compilar para producción
+npm run start        # Ejecutar build de producción
+
+# Calidad de código
+npm run lint         # Ejecutar ESLint
+```
+
+---
+
+## 📦 Características Implementadas
+
+### ✅ **Arquitectura Moderna**
+- Estructura de carpetas escalable
+- Separación clara de responsabilidades (components, hooks, store)
+- Path aliases configurados (`@/components`, `@/hooks`, `@/store`)
+
+### ✅ **Estado Global (Zustand)**
+```typescript
+import { useAuthStore } from '@/store';
+
+const { user, login, logout } = useAuthStore();
+```
+
+Stores disponibles:
+- `useAuthStore` - Autenticación (con persistencia)
+- `useUIStore` - Estado de UI (sidebar, modales, tema)
+
+### ✅ **Custom Hooks**
+```typescript
+import { useMediaQuery, useLocalStorage, useDebounce } from '@/hooks';
+
+const isMobile = useMediaQuery('(max-width: 768px)');
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const debouncedSearch = useDebounce(searchTerm, 500);
+```
+
+### ✅ **Componentes UI Reutilizables**
+```typescript
+import { Button, Card } from '@/components/ui';
+
+<Button variant="primary" size="md">Click</Button>
+<Card variant="elevated" padding="md">...</Card>
+```
+
+### ✅ **Layout Components**
+- `Header` - Navegación con autenticación
+- `Footer` - Pie de página con enlaces
+
+---
+
+## 📖 Guía de Uso
+
+### **Crear un Nuevo Componente**
+
+1. Crear el archivo en la carpeta apropiada:
+```bash
+src/components/features/MiComponente.tsx
+```
+
+2. Usar TypeScript y documentación:
+```typescript
+/**
+ * Mi Componente
+ * 
+ * Descripción del componente
+ */
+
+export interface MiComponenteProps {
+  title: string;
+  onClick?: () => void;
+}
+
+export function MiComponente({ title, onClick }: MiComponenteProps) {
+  return (
+    <div onClick={onClick}>
+      <h2>{title}</h2>
+    </div>
+  );
+}
+```
+
+3. Exportar desde el index:
+```typescript
+// src/components/features/index.ts
+export { MiComponente } from './MiComponente';
+export type { MiComponenteProps } from './MiComponente';
+```
+
+### **Crear un Custom Hook**
+
+```typescript
+// src/hooks/useCustomHook.ts
+'use client';
+
+import { useState, useEffect } from 'react';
+
+export function useCustomHook() {
+  const [value, setValue] = useState('');
+  
+  // Tu lógica aquí
+  
+  return { value, setValue };
+}
+```
+
+### **Crear un Store (Zustand)**
+
+```typescript
+// src/store/my-store.ts
+import { create } from 'zustand';
+
+interface MyState {
+  count: number;
+  increment: () => void;
+}
+
+export const useMyStore = create<MyState>((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+}));
+```
+
+---
+
+## 🎯 Próximas Features
+
+- [ ] Sistema de rutas para destinos
+- [ ] Integración con API backend
+- [ ] Galería de imágenes
+- [ ] Mapa interactivo
+- [ ] Sistema de búsqueda
+- [ ] Filtros avanzados
+- [ ] Modo oscuro automático
+
+---
+
+## 📚 Recursos
+
+- [Documentación de Next.js](https://nextjs.org/docs)
+- [Documentación de Zustand](https://zustand-demo.pmnd.rs/)
+- [Documentación de Tailwind](https://tailwindcss.com/docs)
+- [Arquitectura del Proyecto](./ARCHITECTURE.md)
+
+---
+
+## 👨‍💻 Desarrollo
+
+### **Convenciones de Código**
+- Componentes: PascalCase (`Button.tsx`)
+- Hooks: camelCase con prefijo 'use' (`useAuth.ts`)
+- Stores: kebab-case con sufijo '-store' (`auth-store.ts`)
+- Usar TypeScript estricto
+- Documentar con JSDoc
+
+### **Estructura de Imports**
+```typescript
+// 1. Imports externos
+import { useState } from 'react';
+import Link from 'next/link';
+
+// 2. Imports internos (con path aliases)
+import { Button } from '@/components/ui';
+import { useAuth } from '@/hooks';
+
+// 3. Imports relativos
+import './styles.css';
+```
+
+---
+
+## 📄 Licencia
+
+MIT
+
+---
+
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas. Por favor:
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
