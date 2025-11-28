@@ -24,9 +24,11 @@
       "@/components/*": ["./src/components/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/store/*": ["./src/store/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/styles/*": ["./src/styles/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/types/*": ["./src/types/*"]
     }
   },
   "include": [

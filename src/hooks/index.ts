@@ -1,7 +1,7 @@
 /**
  * Hooks Index
  * 
- * Exporta todos los custom hooks de la aplicación.
+ * Exports all custom hooks of the application.
  */
 
 export { useMediaQuery } from './use-media-query';

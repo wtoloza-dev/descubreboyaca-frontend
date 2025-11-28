@@ -1,139 +1,154 @@
 # 🏞️ Descubre Boyacá - Frontend
 
-Plataforma web para explorar destinos, eventos y gastronomía de Boyacá, Colombia.
+Platform to find things to do in Boyacá: activities, events and places.
 
-Construido con **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS** y **Zustand**.
+Helps people plan and discover experiences in Boyacá, beyond typical tourist routes.
+
+Built with **Next.js 16**, **React 19**, **TypeScript**, **SCSS** and **Zustand**.
 
 ---
 
-## 🚀 Inicio Rápido
+## 💡 Concept
 
-### **Prerrequisitos**
+**Descubre Boyacá** is a platform to find what to do in Boyacá:
+- **Activities** - What you can do in different places
+- **Events** - What's happening and when
+- **Places** - Where to go beyond the obvious
+
+Not just for tourists, also for locals who want to discover more of their region.
+
+---
+
+## 🚀 Quick Start
+
+### **Prerequisites**
 - Node.js 20+
-- npm o yarn
+- npm or yarn
 
-### **Instalación**
+### **Installation**
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Ejecutar en modo desarrollo
+# Run in development mode
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 src/
-├── app/              # Rutas y páginas (Next.js App Router)
-├── components/       # Componentes reutilizables
-│   ├── ui/          # Componentes UI básicos (Button, Card)
-│   └── layout/      # Header, Footer
+├── app/              # Routes and pages (Next.js App Router)
+├── components/       # Components with Atomic Design
+│   ├── atoms/       # Basic components (Button, Input)
+│   ├── molecules/   # Simple combinations (Card, SearchBar)
+│   ├── organisms/   # Complex components (Header, Footer)
+│   ├── templates/   # Page structures
+│   └── pages/       # Complete page components
 ├── hooks/           # Custom React Hooks
-├── store/           # Estado global (Zustand)
-└── ...
+├── store/           # Global state (Zustand)
+├── services/        # Services and API calls
+├── assets/          # Static assets (images, icons, fonts)
+└── styles/          # SCSS styles
 ```
 
-Ver [ARCHITECTURE.md](./ARCHITECTURE.md) para documentación detallada.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed documentation.
 
 ---
 
-## 🎨 Tecnologías
+## 🎨 Technologies
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
 - **UI**: [React 19](https://react.dev/)
-- **Lenguaje**: [TypeScript](https://www.typescriptlang.org/)
-- **Estilos**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Estado**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styles**: [SCSS (Sass)](https://sass-lang.com/) + [Tailwind CSS 4](https://tailwindcss.com/)
+- **State**: [Zustand](https://zustand-demo.pmnd.rs/)
 - **Lint**: ESLint
 
 ---
 
-## 🛠️ Scripts Disponibles
+## 🛠️ Available Scripts
 
 ```bash
-# Desarrollo
-npm run dev          # Servidor de desarrollo
+# Development
+npm run dev          # Development server
 
-# Producción
-npm run build        # Compilar para producción
-npm run start        # Ejecutar build de producción
+# Production
+npm run build        # Build for production
+npm run start        # Run production build
 
-# Calidad de código
-npm run lint         # Ejecutar ESLint
+# Code quality
+npm run lint         # Run ESLint
 ```
 
 ---
 
-## 📦 Características Implementadas
+## 📦 Implemented Architecture
 
-### ✅ **Arquitectura Moderna**
-- Estructura de carpetas escalable
-- Separación clara de responsabilidades (components, hooks, store)
-- Path aliases configurados (`@/components`, `@/hooks`, `@/store`)
+### ✅ **Atomic Design**
+Components organized following Atomic Design methodology:
+- **Atoms** → Basic components (Button, Input)
+- **Molecules** → Simple combinations (Card, SearchBar)
+- **Organisms** → Complex components (Header, Footer)
+- **Templates** → Page structures
+- **Pages** → Complete page components
 
-### ✅ **Estado Global (Zustand)**
+### ✅ **Path Aliases**
 ```typescript
+import { Button } from '@/components';      // Barrel export
+import { Button } from '@/components/atoms'; // Specific
 import { useAuthStore } from '@/store';
-
-const { user, login, logout } = useAuthStore();
+import { useDebounce } from '@/hooks';
 ```
 
-Stores disponibles:
-- `useAuthStore` - Autenticación (con persistencia)
-- `useUIStore` - Estado de UI (sidebar, modales, tema)
+### ✅ **Global State (Zustand)**
+- `useAuthStore` - Authentication
+- `useUIStore` - UI State
 
 ### ✅ **Custom Hooks**
-```typescript
-import { useMediaQuery, useLocalStorage, useDebounce } from '@/hooks';
+- `useMediaQuery` - Reactive media queries
+- `useLocalStorage` - localStorage persistence
+- `useDebounce` - Value debouncing
 
-const isMobile = useMediaQuery('(max-width: 768px)');
-const [theme, setTheme] = useLocalStorage('theme', 'light');
-const debouncedSearch = useDebounce(searchTerm, 500);
-```
+### ✅ **SCSS Styles**
+- Global variables (colors, spacing, breakpoints)
+- Global styles with Sass
 
-### ✅ **Componentes UI Reutilizables**
-```typescript
-import { Button, Card } from '@/components/ui';
-
-<Button variant="primary" size="md">Click</Button>
-<Card variant="elevated" padding="md">...</Card>
-```
-
-### ✅ **Layout Components**
-- `Header` - Navegación con autenticación
-- `Footer` - Pie de página con enlaces
+### ✅ **Assets**
+- Organized folder for images, icons, fonts and videos
+- Centralized export for easy importing
+- Clear separation between `/assets` (imported) and `/public` (public URL)
 
 ---
 
-## 📖 Guía de Uso
+## 📖 Usage Guide
 
-### **Crear un Nuevo Componente**
+### **Creating a New Component**
 
-1. Crear el archivo en la carpeta apropiada:
+1. Create file in appropriate folder:
 ```bash
-src/components/features/MiComponente.tsx
+src/components/atoms/MyComponent.tsx
 ```
 
-2. Usar TypeScript y documentación:
+2. Use TypeScript and documentation:
 ```typescript
 /**
- * Mi Componente
+ * My Component
  * 
- * Descripción del componente
+ * Component description
  */
 
-export interface MiComponenteProps {
+export interface MyComponentProps {
   title: string;
   onClick?: () => void;
 }
 
-export function MiComponente({ title, onClick }: MiComponenteProps) {
+export function MyComponent({ title, onClick }: MyComponentProps) {
   return (
     <div onClick={onClick}>
       <h2>{title}</h2>
@@ -142,31 +157,31 @@ export function MiComponente({ title, onClick }: MiComponenteProps) {
 }
 ```
 
-3. Exportar desde el index:
+3. Export from index:
 ```typescript
-// src/components/features/index.ts
-export { MiComponente } from './MiComponente';
-export type { MiComponenteProps } from './MiComponente';
+// src/components/atoms/index.ts
+export { MyComponent } from './MyComponent';
+export type { MyComponentProps } from './MyComponent';
 ```
 
-### **Crear un Custom Hook**
+### **Creating a Custom Hook**
 
 ```typescript
 // src/hooks/useCustomHook.ts
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export function useCustomHook() {
   const [value, setValue] = useState('');
   
-  // Tu lógica aquí
+  // Your logic here
   
   return { value, setValue };
 }
 ```
 
-### **Crear un Store (Zustand)**
+### **Creating a Store (Zustand)**
 
 ```typescript
 // src/store/my-store.ts
@@ -185,63 +200,63 @@ export const useMyStore = create<MyState>((set) => ({
 
 ---
 
-## 🎯 Próximas Features
+## 🎯 Upcoming Features
 
-- [ ] Sistema de rutas para destinos
-- [ ] Integración con API backend
-- [ ] Galería de imágenes
-- [ ] Mapa interactivo
-- [ ] Sistema de búsqueda
-- [ ] Filtros avanzados
-- [ ] Modo oscuro automático
-
----
-
-## 📚 Recursos
-
-- [Documentación de Next.js](https://nextjs.org/docs)
-- [Documentación de Zustand](https://zustand-demo.pmnd.rs/)
-- [Documentación de Tailwind](https://tailwindcss.com/docs)
-- [Arquitectura del Proyecto](./ARCHITECTURE.md)
+- [ ] Activities and places catalog
+- [ ] Events calendar
+- [ ] Search and filter system
+- [ ] Backend API integration
+- [ ] Interactive map
+- [ ] Planning system
+- [ ] User profiles
 
 ---
 
-## 👨‍💻 Desarrollo
+## 📚 Resources
 
-### **Convenciones de Código**
-- Componentes: PascalCase (`Button.tsx`)
-- Hooks: camelCase con prefijo 'use' (`useAuth.ts`)
-- Stores: kebab-case con sufijo '-store' (`auth-store.ts`)
-- Usar TypeScript estricto
-- Documentar con JSDoc
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Zustand Documentation](https://zustand-demo.pmnd.rs/)
+- [Tailwind Documentation](https://tailwindcss.com/docs)
+- [Project Architecture](./ARCHITECTURE.md)
 
-### **Estructura de Imports**
+---
+
+## 👨‍💻 Development
+
+### **Code Conventions**
+- Components: PascalCase (`Button.tsx`)
+- Hooks: camelCase with 'use' prefix (`useAuth.ts`)
+- Stores: kebab-case with '-store' suffix (`auth-store.ts`)
+- Use strict TypeScript
+- Document with JSDoc
+
+### **Import Structure**
 ```typescript
-// 1. Imports externos
+// 1. External imports
 import { useState } from 'react';
 import Link from 'next/link';
 
-// 2. Imports internos (con path aliases)
-import { Button } from '@/components/ui';
+// 2. Internal imports (with path aliases)
+import { Button } from '@/components';
 import { useAuth } from '@/hooks';
 
-// 3. Imports relativos
+// 3. Relative imports
 import './styles.css';
 ```
 
 ---
 
-## 📄 Licencia
+## 📄 License
 
 MIT
 
 ---
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas. Por favor:
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+Contributions are welcome. Please:
+1. Fork the project
+2. Create a branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request

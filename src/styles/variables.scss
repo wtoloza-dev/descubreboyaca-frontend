@@ -1,0 +1,26 @@
+/**
+ * SCSS Variables
+ * 
+ * Defines variables for colors, sizes, etc.
+ */
+
+// Colors
+$primary: #3b82f6;
+$secondary: #6b7280;
+$success: #10b981;
+$danger: #ef4444;
+$warning: #f59e0b;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+

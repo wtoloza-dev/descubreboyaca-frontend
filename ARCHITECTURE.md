@@ -1,24 +1,35 @@
-# 🏗️ Arquitectura del Proyecto - Descubre Boyacá
+# 🏗️ Project Architecture - Descubre Boyacá
 
-## 📁 Estructura del Proyecto
+## 🎯 About the Project
+
+**Descubre Boyacá** is a platform to find what to do in Boyacá: activities, events and places. It helps people (locals and visitors) plan and discover experiences beyond typical tourist routes.
+
+---
+
+## 📁 Project Structure
 
 ```
 src/
-├── app/                    # Rutas y páginas (Next.js App Router)
+├── app/                    # Routes and pages (Next.js App Router)
 │   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page (/)
-│   └── globals.css        # Estilos globales
+│   └── page.tsx           # Home page (/)
 │
-├── components/            # Componentes reutilizables
-│   ├── ui/               # Componentes UI básicos
+├── components/            # Components using Atomic Design
+│   ├── atoms/            # Basic indivisible components
 │   │   ├── button.tsx
+│   │   └── index.ts
+│   ├── molecules/        # Simple combinations of atoms
 │   │   ├── card.tsx
 │   │   └── index.ts
-│   ├── layout/           # Componentes de layout
+│   ├── organisms/        # Complex components
 │   │   ├── header.tsx
 │   │   ├── footer.tsx
 │   │   └── index.ts
-│   └── features/         # Componentes por feature (futuro)
+│   ├── templates/        # Page structures
+│   │   └── index.ts
+│   ├── pages/            # Complete page components
+│   │   └── index.ts
+│   └── index.ts          # Central export
 │
 ├── hooks/                # Custom React Hooks
 │   ├── use-media-query.ts
@@ -26,75 +37,178 @@ src/
 │   ├── use-debounce.ts
 │   └── index.ts
 │
-└── store/                # Estado global (Zustand)
-    ├── auth-store.ts
-    ├── ui-store.ts
-    └── index.ts
+├── store/                # Global state (Zustand)
+│   ├── auth-store.ts
+│   ├── ui-store.ts
+│   └── index.ts
+│
+├── services/             # Services and API calls
+│   ├── api.service.ts
+│   └── index.ts
+│
+├── assets/               # Static assets (images, icons, fonts)
+│   ├── images/
+│   ├── icons/
+│   ├── fonts/
+│   ├── videos/
+│   ├── index.ts
+│   └── README.md
+│
+└── styles/               # SCSS styles
+    ├── globals.scss
+    └── variables.scss
 ```
 
 ---
 
-## 🎯 Conceptos Clave
+## ⚛️ Atomic Design
+
+The project uses **Atomic Design** to organize components:
+
+### **Atoms**
+Basic and indivisible components. They are the smallest building blocks.
+
+**Examples:**
+- `Button` - Basic button
+- `Input` - Text field
+- `Label` - Text label
+- `Icon` - Icons
+
+```typescript
+import { Button } from '@/components/atoms';
+// or import directly from barrel export
+import { Button } from '@/components';
+```
+
+### **Molecules**
+Simple combinations of atoms that form functional components.
+
+**Examples:**
+- `Card` - Card with header, content, footer
+- `SearchBar` - Input + Button
+- `FormField` - Label + Input + Error message
+
+```typescript
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/molecules';
+// or from barrel export
+import { Card, CardHeader, CardTitle, CardContent } from '@/components';
+```
+
+### **Organisms**
+Complex components formed by molecules and atoms.
+
+**Examples:**
+- `Header` - Main navigation
+- `Footer` - Page footer
+- `Navigation` - Navigation menu
+- `EventCard` - Complete event card
+
+```typescript
+import { Header, Footer } from '@/components/organisms';
+// or from barrel export
+import { Header, Footer } from '@/components';
+```
+
+### **Templates**
+Page structures that define layout by combining organisms.
+
+**Examples:**
+- `MainTemplate` - Main template with header and footer
+- `DashboardTemplate` - Dashboard template
+
+```typescript
+import { MainTemplate } from '@/components/templates';
+```
+
+### **Pages**
+Specific instances of templates with real content. Complete page components ready to use.
+
+**Examples:**
+- `HomePage` - Complete home page
+- `EventsPage` - Complete events page
+
+```typescript
+import { HomePage } from '@/components/pages';
+```
+
+**Note:** In Next.js, pages are also in `app/`, but complex page components can be here for better organization.
+
+---
+
+## 🎯 Key Concepts
 
 ### **Path Aliases**
 
-El proyecto usa path aliases para imports limpios:
+The project uses path aliases for clean imports:
 
 ```typescript
-// ❌ Evitar
+// ❌ Avoid
 import { Button } from '../../../components/ui/button';
 
-// ✅ Usar
-import { Button } from '@/components/ui';
+// ✅ Use
+import { Button } from '@/components';
 ```
 
-**Aliases configurados:**
+**Configured aliases:**
 - `@/*` → `./src/*`
-- `@/components/*` → `./src/components/*`
-- `@/hooks/*` → `./src/hooks/*`
-- `@/store/*` → `./src/store/*`
+- `@/components` → `./src/components`
+- `@/hooks` → `./src/hooks`
+- `@/store` → `./src/store`
+- `@/services` → `./src/services`
+- `@/assets` → `./src/assets`
+- `@/styles` → `./src/styles`
+
+**Importing components:**
+```typescript
+// Import from specific category
+import { Button } from '@/components/atoms';
+import { Card } from '@/components/molecules';
+import { Header } from '@/components/organisms';
+
+// Or import from main barrel export
+import { Button, Card, Header } from '@/components';
+```
 
 ---
 
-## 🗃️ Estado Global (Zustand)
+## 🗃️ Global State (Zustand)
 
-### **Uso de Stores**
+### **Using Stores**
 
 ```typescript
 import { useAuthStore } from '@/store';
 
 function MyComponent() {
-  // Obtener estado y acciones
+  // Get state and actions
   const { user, isAuthenticated, login, logout } = useAuthStore();
 
-  // Selector específico (mejor performance)
+  // Specific selector (better performance)
   const user = useAuthStore(state => state.user);
 
   return (
     <div>
-      {isAuthenticated ? `Hola ${user.name}` : 'No autenticado'}
+      {isAuthenticated ? `Hello ${user.name}` : 'Not authenticated'}
     </div>
   );
 }
 ```
 
-### **Stores disponibles:**
+### **Available stores:**
 
-1. **`useAuthStore`** - Autenticación
-   - Estado: `user`, `isAuthenticated`, `isLoading`
-   - Acciones: `login()`, `logout()`, `setUser()`
-   - Persistencia: localStorage
+1. **`useAuthStore`** - Authentication
+   - State: `user`, `isAuthenticated`
+   - Actions: `login()`, `logout()`
 
-2. **`useUIStore`** - Estado UI
-   - Estado: `sidebarOpen`, `theme`, `modalOpen`
-   - Acciones: `toggleSidebar()`, `setTheme()`, `openModal()`
+2. **`useUIStore`** - UI State
+   - State: `sidebarOpen`
+   - Actions: `toggleSidebar()`
 
 ---
 
 ## 🪝 Custom Hooks
 
 ### **useMediaQuery**
-Detecta media queries de forma reactiva.
+Detects media queries reactively.
 
 ```typescript
 import { useMediaQuery } from '@/hooks';
@@ -104,16 +218,16 @@ const isDesktop = useMediaQuery('(min-width: 1024px)');
 ```
 
 ### **useLocalStorage**
-Sincroniza estado con localStorage.
+Syncs state with localStorage.
 
 ```typescript
 import { useLocalStorage } from '@/hooks';
 
-const [theme, setTheme, removeTheme] = useLocalStorage('theme', 'light');
+const [theme, setTheme] = useLocalStorage('theme', 'light');
 ```
 
 ### **useDebounce**
-Aplica debounce a valores (útil para búsquedas).
+Applies debounce to values (useful for searches).
 
 ```typescript
 import { useDebounce } from '@/hooks';
@@ -124,118 +238,153 @@ const debouncedSearch = useDebounce(search, 500);
 
 ---
 
-## 🎨 Componentes UI
+## 🎨 Component Usage Examples
 
-### **Button**
+### **Atoms - Button**
 
 ```typescript
-import { Button } from '@/components/ui';
+import { Button } from '@/components';
 
-<Button variant="primary" size="md" onClick={handleClick}>
+<Button onClick={handleClick}>
   Click me
-</Button>
-
-<Button variant="outline" isLoading={loading}>
-  Loading...
 </Button>
 ```
 
-**Props:**
-- `variant`: 'primary' | 'secondary' | 'outline' | 'ghost'
-- `size`: 'sm' | 'md' | 'lg'
-- `isLoading`: boolean
-
-### **Card**
+### **Molecules - Card**
 
 ```typescript
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components';
 
-<Card variant="elevated" padding="md">
+<Card>
   <CardHeader>
-    <CardTitle>Título</CardTitle>
+    <CardTitle>Title</CardTitle>
   </CardHeader>
   <CardContent>
-    Contenido de la tarjeta
+    Card content
   </CardContent>
 </Card>
 ```
 
----
-
-## 📱 Componentes de Layout
-
-### **Header**
-Navegación principal con autenticación integrada.
+### **Organisms - Header and Footer**
 
 ```typescript
-import { Header } from '@/components/layout';
+import { Header, Footer } from '@/components';
 
-<Header /> // Muestra automáticamente estado de auth
-```
-
-### **Footer**
-Pie de página con enlaces y copyright.
-
-```typescript
-import { Footer } from '@/components/layout';
-
-<Footer />
+<>
+  <Header />
+  <main>Content</main>
+  <Footer />
+</>
 ```
 
 ---
 
-## 📋 Convenciones de Código
+## 🎨 Styles with SCSS
 
-### **Archivos**
-- Componentes: PascalCase (`Button.tsx`, `UserCard.tsx`)
-- Hooks: camelCase con prefijo 'use' (`useAuth.ts`)
-- Stores: kebab-case con sufijo '-store' (`auth-store.ts`)
+The project uses SCSS (Sass) for styles:
+
+```scss
+// src/styles/variables.scss
+$primary: #3b82f6;
+$spacing-md: 1rem;
+
+// src/styles/globals.scss
+@import './variables';
+
+.button {
+  color: $primary;
+  padding: $spacing-md;
+}
+```
+
+**Main files:**
+- `globals.scss` - Application global styles
+- `variables.scss` - Variables for colors, spacing, breakpoints
+
+---
+
+## 📦 Assets
+
+Static resources of the project organized by type.
+
+```
+assets/
+├── images/    # Images (.jpg, .png, .webp)
+├── icons/     # Icons (.svg, .ico)
+├── fonts/     # Custom fonts
+└── videos/    # Videos
+```
+
+### **Using Assets**
+
+```typescript
+// Import from index.ts (recommended)
+import { LogoImage, IconHome } from '@/assets';
+
+// Or import directly
+import LogoImage from '@/assets/images/logo.png';
+
+// Use with Next.js Image
+import Image from 'next/image';
+import HeroImage from '@/assets/images/hero.webp';
+
+<Image src={HeroImage} alt="Hero" width={1200} height={600} />
+```
+
+**Difference with `/public`:**
+- **`/src/assets`** → Assets imported in components
+- **`/public`** → Assets with direct public URL (favicon, robots.txt)
+
+---
+
+## 📋 Code Conventions
+
+### **Files**
+- Components: PascalCase (`Button.tsx`, `UserCard.tsx`)
+- Hooks: camelCase with 'use' prefix (`useAuth.ts`)
+- Stores: kebab-case with '-store' suffix (`auth-store.ts`)
 - Utilities: kebab-case (`format-date.ts`)
 
-### **Exportaciones**
-- Usar archivos `index.ts` para exportaciones limpias
-- Exportar tipos junto con componentes
+### **Exports**
+- Use `index.ts` files for clean exports
+- Export types along with components
 
 ```typescript
-// components/ui/index.ts
+// components/atoms/index.ts
 export { Button } from './button';
 export type { ButtonProps } from './button';
 ```
 
-### **Componentes**
-- Usar TypeScript con tipos explícitos
-- Documentar con JSDoc
-- Props interface con sufijo 'Props'
+### **Components**
+- Use TypeScript with explicit types
+- Document with JSDoc
+- Props interface with 'Props' suffix
 
 ```typescript
 /**
- * Descripción del componente
+ * Component description
  */
 export interface ButtonProps {
-  variant?: 'primary' | 'secondary';
   onClick?: () => void;
 }
 
-export function Button({ variant, onClick }: ButtonProps) {
+export function Button({ onClick }: ButtonProps) {
   // ...
 }
 ```
 
 ---
 
-## 🚀 Próximos Pasos
+## 🚀 Next Steps
 
-### **Estructura futura a agregar:**
+### **Future structure to add:**
 
 ```
 src/
-├── lib/                  # Utilidades y helpers
+├── lib/                  # Utilities and helpers
 │   ├── utils/
 │   ├── constants/
 │   └── helpers/
-│
-├── services/            # API calls
-│   └── api/
 │
 ├── types/               # TypeScript types
 │   └── models/
@@ -245,10 +394,9 @@ src/
 
 ---
 
-## 📚 Recursos
+## 📚 Resources
 
 - [Next.js 16 Docs](https://nextjs.org/docs)
 - [Zustand Docs](https://zustand-demo.pmnd.rs/)
-- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Sass/SCSS](https://sass-lang.com/)
 - [TypeScript](https://www.typescriptlang.org/docs/)
-

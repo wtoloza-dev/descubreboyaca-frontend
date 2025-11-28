@@ -1,43 +1,24 @@
 /**
  * useDebounce Hook
  * 
- * Hook para debounce de valores (útil para búsquedas).
+ * Hook for value debouncing (useful for searches).
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
-
 /**
- * Hook para aplicar debounce a un valor
+ * Hook to apply debounce to a value
  * 
- * @param value - Valor a aplicar debounce
- * @param delay - Delay en milisegundos
- * @returns Valor con debounce aplicado
+ * @param value - Value to debounce
+ * @param delay - Delay in milliseconds
+ * @returns Debounced value
  * 
  * @example
- * const [searchTerm, setSearchTerm] = useState('');
  * const debouncedSearchTerm = useDebounce(searchTerm, 500);
- * 
- * useEffect(() => {
- *   // Hacer búsqueda con debouncedSearchTerm
- * }, [debouncedSearchTerm]);
  */
 export function useDebounce<T>(value: T, delay: number = 500): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    // Actualiza el valor después del delay
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    // Cancela el timeout si value cambia antes del delay
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
+  // TODO: Implement debounce logic
+  console.log(delay);
+  return value;
 }
 

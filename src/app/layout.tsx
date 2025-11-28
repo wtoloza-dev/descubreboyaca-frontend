@@ -1,28 +1,25 @@
 /**
  * Root Layout
  * 
- * Layout principal de la aplicación.
- * Incluye configuración de fuentes, metadata y estructura HTML base.
+ * Main application layout.
+ * Includes font configuration, metadata and base HTML structure.
  */
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Header, Footer } from "@/components/layout";
+import { Roboto } from "next/font/google";
+import "@/styles/globals.scss";
+import { Header, Footer } from "@/components";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"], // Light, Regular, Medium, Bold
+  display: "swap", // Mejora la performance de carga
 });
 
 export const metadata: Metadata = {
-  title: "Descubre Boyacá - Tu guía turística completa",
-  description: "Explora los mejores destinos, eventos y gastronomía de Boyacá, Colombia",
+  title: "Descubre Boyacá - What to do in Boyacá",
+  description: "Find activities, events and places in Boyacá. Plan your visit or discover something new near you",
 };
 
 export default function RootLayout({
@@ -33,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen flex-col`}
+        className={`${roboto.variable} antialiased flex min-h-screen flex-col`}
       >
         <Header />
         <div className="flex-1">

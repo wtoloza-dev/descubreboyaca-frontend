@@ -1,16 +1,25 @@
 /**
  * Components Index
  * 
- * Exporta todos los componentes de la aplicación.
- * Organizado por categorías: ui, layout, features
+ * Exports all components following Atomic Design:
+ * - Atoms: Basic indivisible components
+ * - Molecules: Simple combinations of atoms
+ * - Organisms: Complex components
+ * - Templates: Page structures
+ * - Pages: Specific page instances
  */
 
-// UI Components
-export * from './ui';
+// Atoms
+export * from './atoms';
 
-// Layout Components
-export * from './layout';
+// Molecules
+export * from './molecules';
 
-// Feature Components
-// export * from './features';
+// Organisms
+export * from './organisms';
 
+// Templates (uncomment when you create templates)
+// export * from './templates';
+
+// Pages (uncomment when you create pages)
+// export * from './pages';
