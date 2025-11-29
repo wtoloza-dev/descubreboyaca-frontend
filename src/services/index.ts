@@ -4,6 +4,6 @@
  * Exports all application services.
  */
 
-// export { authService } from './auth.service';
-// export { apiService } from './api.service';
+export * from './auth.service';
+export * from './api.service';
 

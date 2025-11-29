@@ -17,5 +17,8 @@ export * from './molecules';
 // Organisms
 export * from './organisms';
 
+// Layouts
+export * from './layouts';
+
 // Templates (uncomment when you create templates)
 // export * from './templates';

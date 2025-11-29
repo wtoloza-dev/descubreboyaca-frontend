@@ -1,0 +1,79 @@
+/**
+ * Social Login Styles
+ * 
+ * Styles for social authentication buttons.
+ */
+
+.social-login {
+  margin-top: 1rem;
+}
+
+.social-login__divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+  }
+}
+
+.social-login__divider-text {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.social-login__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-login__button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+  color: #2d3748;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+
+  &:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+}
+
+.social-login__button--google {
+  &:hover {
+    background: #f8f9fa;
+    border-color: #4285f4;
+  }
+}
+
+.social-login__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
