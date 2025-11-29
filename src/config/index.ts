@@ -1,6 +1,6 @@
 /**
  * Config Manager
- * 
+ *
  * Singleton configuration based on SCOPE environment variable.
  * Initialized once when first imported.
  * Default: local
@@ -31,9 +31,9 @@ const scope = (process.env.SCOPE || 'local') as Scope;
 
 /**
  * Application configuration (singleton)
- * 
+ *
  * Initialized once based on SCOPE environment variable.
- * 
+ *
  * @example
  * ```typescript
  * import { config } from '@/config';
@@ -44,4 +44,3 @@ export const config = configs[scope];
 
 // Re-export types
 export type { Config } from './types';
-

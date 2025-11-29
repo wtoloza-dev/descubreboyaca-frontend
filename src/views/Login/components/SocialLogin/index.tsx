@@ -1,9 +1,9 @@
 /**
  * Social Login Component
- * 
+ *
  * Displays social login options (Google, Facebook, etc.).
  * Specific to Login view.
- * 
+ *
  * Why in views/Login/components/?
  * - Specific to login flow
  * - Not used elsewhere in app
@@ -16,10 +16,10 @@ import './styles.scss';
 
 /**
  * Social Login Component
- * 
+ *
  * Renders social authentication buttons.
  * Currently supports Google OAuth (API endpoint available).
- * 
+ *
  * @returns JSX.Element - Social login options
  */
 export const SocialLogin = () => {
@@ -76,4 +76,3 @@ export const SocialLogin = () => {
     </div>
   );
 };
-

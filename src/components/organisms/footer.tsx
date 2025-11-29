@@ -1,6 +1,6 @@
 /**
  * Footer Component (Organism)
- * 
+ *
  * Application footer component.
  * It's an organism because it combines multiple molecules and atoms.
  */
@@ -18,4 +18,3 @@ export function Footer() {
     </footer>
   );
 }
-

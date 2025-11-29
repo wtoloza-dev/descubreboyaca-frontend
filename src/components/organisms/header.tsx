@@ -1,6 +1,6 @@
 /**
  * Header Component (Organism)
- * 
+ *
  * Main application header component.
  * It's an organism because it combines multiple molecules and atoms.
  */
@@ -20,4 +20,3 @@ export function Header() {
     </header>
   );
 }
-

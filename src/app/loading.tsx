@@ -1,6 +1,6 @@
 /**
  * Global Loading State
- * 
+ *
  * Displayed while any page in the application is loading.
  * Uses Suspense boundaries automatically.
  */
@@ -15,4 +15,3 @@ export default function Loading() {
     </div>
   );
 }
-

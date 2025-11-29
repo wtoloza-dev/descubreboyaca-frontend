@@ -1,6 +1,6 @@
 /**
  * Home Page
- * 
+ *
  * Main page of Descubre Boyacá.
  */
 

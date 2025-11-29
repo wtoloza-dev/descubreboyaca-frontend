@@ -1,6 +1,6 @@
 /**
  * Templates Index
- * 
+ *
  * Exports all page templates.
  * Templates define page structure by combining organisms.
  */
@@ -10,4 +10,3 @@
 
 // Temporary empty export to avoid warnings
 export {};
-

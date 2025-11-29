@@ -1,9 +1,9 @@
 /**
  * Auth Store
- * 
+ *
  * Authentication store using Zustand.
  * Handles user state and login/logout functions.
- * 
+ *
  * Architecture:
  * - Store manages global state (user, loading, errors)
  * - Operations handle API calls (imported from @/services/auth)
@@ -11,13 +11,13 @@
  */
 
 import { create } from 'zustand';
-import { 
-  login as loginOperation, 
+import {
+  login as loginOperation,
   getCurrentUser,
   storeTokens,
   getAccessToken,
   clearTokens,
-  type UserResponse 
+  type UserResponse,
 } from '@/services/auth';
 
 // Types
@@ -60,22 +60,22 @@ export const useAuthStore = create<AuthStore>((set) => ({
   // Actions
   /**
    * Login user with email and password
-   * 
+   *
    * @param email - User's email address
    * @param password - User's password
    */
   login: async (email: string, password: string) => {
     set({ isLoading: true, error: null });
-    
+
     try {
       // Call login operation
       const response = await loginOperation(email, password);
-      
+
       // Store tokens using utility
       storeTokens(response.access_token, response.refresh_token);
-      
+
       // Update state with user data
-      set({ 
+      set({
         user: response.user,
         isAuthenticated: true,
         isLoading: false,
@@ -83,7 +83,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
-      set({ 
+      set({
         error: errorMessage,
         isLoading: false,
         isAuthenticated: false,
@@ -99,8 +99,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
   logout: () => {
     // Clear tokens using utility
     clearTokens();
-    set({ 
-      user: null, 
+    set({
+      user: null,
       isAuthenticated: false,
       error: null,
     });
@@ -120,7 +120,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   initializeAuth: async () => {
     // Get token using utility
     const accessToken = getAccessToken();
-    
+
     if (!accessToken) {
       return;
     }
@@ -130,7 +130,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     try {
       // Get current user using operation
       const { user } = await getCurrentUser(accessToken);
-      set({ 
+      set({
         user,
         isAuthenticated: true,
         isLoading: false,
@@ -138,7 +138,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     } catch (error) {
       // Token is invalid, clear it
       clearTokens();
-      set({ 
+      set({
         user: null,
         isAuthenticated: false,
         isLoading: false,

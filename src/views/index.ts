@@ -1,8 +1,8 @@
 /**
  * Views Index
- * 
+ *
  * Export all views.
- * 
+ *
  * Views vs Pages:
  * - Views contain business logic, state management, and components
  * - Pages (in app/) are just routing wrappers

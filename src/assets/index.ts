@@ -1,6 +1,6 @@
 /**
  * Assets Index
- * 
+ *
  * Exports paths or references to project assets.
  * Facilitates importing images, icons, etc.
  */
@@ -10,4 +10,3 @@
 // export { default as IconHome } from './icons/home.svg';
 
 export {};
-

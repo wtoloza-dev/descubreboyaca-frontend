@@ -1,6 +1,6 @@
 /**
  * API Service
- * 
+ *
  * Service for making API calls.
  */
 
@@ -10,13 +10,13 @@ const API_URL = config.apiUrl;
 
 /**
  * Generic API service class
- * 
+ *
  * Provides methods for making HTTP requests to the backend API.
  */
 class ApiService {
   /**
    * Make a GET request
-   * 
+   *
    * @param endpoint - API endpoint
    * @param token - Optional JWT token for authentication
    * @returns Promise with response data
@@ -44,7 +44,7 @@ class ApiService {
 
   /**
    * Make a POST request
-   * 
+   *
    * @param endpoint - API endpoint
    * @param data - Request body data
    * @param token - Optional JWT token for authentication
@@ -74,7 +74,7 @@ class ApiService {
 
   /**
    * Make a PUT request
-   * 
+   *
    * @param endpoint - API endpoint
    * @param data - Request body data
    * @param token - Optional JWT token for authentication
@@ -104,7 +104,7 @@ class ApiService {
 
   /**
    * Make a DELETE request
-   * 
+   *
    * @param endpoint - API endpoint
    * @param token - Optional JWT token for authentication
    * @returns Promise with response data
@@ -133,4 +133,3 @@ class ApiService {
 
 // Export singleton instance
 export const apiService = new ApiService();
-

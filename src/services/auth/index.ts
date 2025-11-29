@@ -1,27 +1,27 @@
 /**
  * Authentication Module - Barrel Export
- * 
+ *
  * This is a "barrel file" that re-exports everything from the auth module.
  * It provides a clean, organized public API for the authentication module.
- * 
+ *
  * Benefits of Barrel Files:
- * 
+ *
  * ✅ Clean imports:
  * ```typescript
  * // Without barrel
  * import { login } from '@/services/auth/operations/login.operation';
  * import { register } from '@/services/auth/operations/register.operation';
  * import type { LoginResponse } from '@/services/auth/types/auth.types';
- * 
+ *
  * // With barrel
  * import { login, register } from '@/services/auth';
  * import type { LoginResponse } from '@/services/auth';
  * ```
- * 
+ *
  * ✅ Encapsulation:
  * - Internal structure can change without breaking imports
  * - Can control what's exposed publicly
- * 
+ *
  * ✅ Organization:
  * - Grouped related exports
  * - Single import statement for related items
@@ -69,7 +69,7 @@ export { login } from './operations/login.operation';
 export { register } from './operations/register.operation';
 
 // Token operations
-export { 
+export {
   refreshAccessToken,
   parseToken,
   isTokenExpired,
@@ -93,27 +93,27 @@ export {
 
 /**
  * Usage Examples:
- * 
+ *
  * 1. Login flow:
  * ```typescript
  * import { login, storeTokens } from '@/services/auth';
- * 
+ *
  * const response = await login(email, password);
  * storeTokens(response.access_token, response.refresh_token);
  * ```
- * 
+ *
  * 2. Get current user:
  * ```typescript
  * import { getCurrentUser, getAccessToken } from '@/services/auth';
- * 
+ *
  * const token = getAccessToken();
  * const { user } = await getCurrentUser(token);
  * ```
- * 
+ *
  * 3. Refresh token:
  * ```typescript
  * import { refreshAccessToken, getRefreshToken, storeTokens } from '@/services/auth';
- * 
+ *
  * const refreshToken = getRefreshToken();
  * const { access_token } = await refreshAccessToken(refreshToken);
  * storeTokens(access_token, refreshToken);

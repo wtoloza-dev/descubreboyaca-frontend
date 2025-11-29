@@ -1,6 +1,6 @@
 /**
  * Button Component (Atom)
- * 
+ *
  * Reusable basic button component.
  */
 
@@ -12,15 +12,10 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 /**
  * Reusable basic button
- * 
+ *
  * @example
  * <Button onClick={handleClick}>Click me</Button>
  */
 export function Button({ children, ...props }: ButtonProps) {
-  return (
-    <button {...props}>
-      {children}
-    </button>
-  );
+  return <button {...props}>{children}</button>;
 }
-

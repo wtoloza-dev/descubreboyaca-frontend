@@ -1,6 +1,6 @@
 /**
  * UI Store
- * 
+ *
  * Store for UI state (sidebar, modals, theme, etc.)
  */
 
@@ -23,4 +23,3 @@ export const useUIStore = create<UIStore>((set) => ({
   // Actions
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
 }));
-

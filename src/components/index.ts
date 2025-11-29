@@ -1,6 +1,6 @@
 /**
  * Components Index
- * 
+ *
  * Exports all components following Atomic Design:
  * - Atoms: Basic indivisible components
  * - Molecules: Simple combinations of atoms

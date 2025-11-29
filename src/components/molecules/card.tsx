@@ -1,6 +1,6 @@
 /**
  * Card Component (Molecule)
- * 
+ *
  * Reusable card component for displaying content.
  * It's a molecule because it's composed of multiple elements (Header, Title, Content, Footer).
  */
@@ -13,7 +13,7 @@ export interface CardProps {
 
 /**
  * Basic card for grouping content
- * 
+ *
  * @example
  * <Card>
  *   <CardHeader>
@@ -44,4 +44,3 @@ export function CardContent({ children }: { children: React.ReactNode }) {
 export function CardFooter({ children }: { children: React.ReactNode }) {
   return <div>{children}</div>;
 }
-

@@ -1,11 +1,11 @@
 /**
  * Global Error Handler
- * 
+ *
  * Catches and handles errors that occur in any page.
  * Must be a Client Component.
  */
 
-'use client'
+'use client';
 
 import { useEffect } from 'react';
 
@@ -24,9 +24,7 @@ export default function Error({
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
       <div className="text-center max-w-md">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">
-          ¡Oops! Algo salió mal
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">¡Oops! Algo salió mal</h2>
         <p className="text-gray-600 mb-6">
           Lo sentimos, ha ocurrido un error inesperado. Por favor intenta de nuevo.
         </p>
@@ -40,4 +38,3 @@ export default function Error({
     </div>
   );
 }
-

@@ -1,24 +1,25 @@
 /**
  * Root Layout
- * 
+ *
  * Main application layout.
  * Includes font configuration, metadata and base HTML structure.
  */
 
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import "@/styles/globals.scss";
+import type { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
+import '@/styles/globals.scss';
 
 const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"], // Light, Regular, Medium, Bold
-  display: "swap", // Mejora la performance de carga
+  variable: '--font-roboto',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'], // Light, Regular, Medium, Bold
+  display: 'swap', // Mejora la performance de carga
 });
 
 export const metadata: Metadata = {
-  title: "Descubre Boyacá - What to do in Boyacá",
-  description: "Find activities, events and places in Boyacá. Plan your visit or discover something new near you",
+  title: 'Descubre Boyacá - What to do in Boyacá',
+  description:
+    'Find activities, events and places in Boyacá. Plan your visit or discover something new near you',
 };
 
 export default function RootLayout({
@@ -28,9 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body
-        className={`${roboto.variable} antialiased flex min-h-screen flex-col`}
-      >
+      <body className={`${roboto.variable} antialiased flex min-h-screen flex-col`}>
         {children}
       </body>
     </html>

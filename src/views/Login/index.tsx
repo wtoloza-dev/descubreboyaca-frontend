@@ -1,9 +1,9 @@
 /**
  * Login View
- * 
+ *
  * Main login page view component.
  * Handles user authentication with email and password.
- * 
+ *
  * Architecture:
  * - This is a VIEW, not a page
  * - Contains logic and state management
@@ -22,9 +22,9 @@ import './styles.scss';
 
 /**
  * Login View Component
- * 
+ *
  * Manages login state and orchestrates child components.
- * 
+ *
  * @returns JSX.Element - Login view with form and social login options
  */
 export const LoginView = () => {
@@ -33,7 +33,7 @@ export const LoginView = () => {
 
   /**
    * Handle form submission
-   * 
+   *
    * @param email - User's email
    * @param password - User's password
    */
@@ -56,17 +56,11 @@ export const LoginView = () => {
         {/* Header */}
         <div className="login-view__header">
           <h1 className="login-view__title">Bienvenido</h1>
-          <p className="login-view__subtitle">
-            Inicia sesión en Descubre Boyacá
-          </p>
+          <p className="login-view__subtitle">Inicia sesión en Descubre Boyacá</p>
         </div>
 
         {/* Login Form */}
-        <LoginForm
-          onSubmit={handleSubmit}
-          isLoading={isLoading}
-          error={error}
-        />
+        <LoginForm onSubmit={handleSubmit} isLoading={isLoading} error={error} />
 
         {/* Social Login Options */}
         <SocialLogin />
@@ -84,4 +78,3 @@ export const LoginView = () => {
     </div>
   );
 };
-
