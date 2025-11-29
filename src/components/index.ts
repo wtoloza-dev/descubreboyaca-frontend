@@ -6,7 +6,6 @@
  * - Molecules: Simple combinations of atoms
  * - Organisms: Complex components
  * - Templates: Page structures
- * - Pages: Specific page instances
  */
 
 // Atoms
@@ -20,6 +19,3 @@ export * from './organisms';
 
 // Templates (uncomment when you create templates)
 // export * from './templates';
-
-// Pages (uncomment when you create pages)
-// export * from './pages';
