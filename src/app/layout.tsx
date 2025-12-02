@@ -29,7 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${roboto.variable} antialiased flex min-h-screen flex-col`}>
+      <body
+        className={`${roboto.variable} antialiased flex min-h-screen flex-col`}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>
