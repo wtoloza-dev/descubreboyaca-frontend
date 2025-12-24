@@ -10,5 +10,6 @@
  */
 
 export { LoginView } from './Login';
-export { RestaurantsView } from './Restaurants';
+export { ProfileView } from './Profile';
 export { RestaurantDetailView } from './RestaurantDetail';
+export { RestaurantsView } from './Restaurants';

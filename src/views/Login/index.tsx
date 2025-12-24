@@ -4,18 +4,22 @@
  * Main login page view component.
  * Handles user authentication with email and password.
  *
- * Architecture:
- * - This is a VIEW, not a page
- * - Contains logic and state management
- * - Uses view-specific components from ./components/
- * - Rendered by app/login/page.tsx (routing layer)
+ * 🎓 LESSON: Auth.js Integration
+ *
+ * Previously used Zustand store for auth.
+ * Now uses Auth.js signIn() function.
+ *
+ * signIn() handles:
+ * - Calling the authorize() function in auth.ts
+ * - Setting the httpOnly cookie
+ * - Redirecting after success
  */
 
 'use client';
 
-import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/auth-store';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { LoginForm } from './components/LoginForm';
 import { SocialLogin } from './components/SocialLogin';
 import './styles.scss';
@@ -24,29 +28,54 @@ import './styles.scss';
  * Login View Component
  *
  * Manages login state and orchestrates child components.
- *
- * @returns JSX.Element - Login view with form and social login options
  */
 export const LoginView = () => {
   const router = useRouter();
-  const { login, isLoading, error, clearError } = useAuthStore();
+  const searchParams = useSearchParams();
+
+  // State for loading and error
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Get callback URL from query params (set by proxy when redirecting)
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   /**
    * Handle form submission
+   *
+   * 🎓 LESSON: signIn() function
+   *
+   * signIn('credentials', { ... }) calls our Credentials provider.
+   * - redirect: false → Don't auto-redirect, we handle it
+   * - Returns { ok, error } so we can show errors
    *
    * @param email - User's email
    * @param password - User's password
    */
   const handleSubmit = async (email: string, password: string) => {
-    clearError();
+    setError(null);
+    setIsLoading(true);
 
     try {
-      await login(email, password);
-      // Redirect to home page on successful login
-      router.push('/');
-    } catch (error) {
-      // Error is handled by the store and displayed in form
-      console.error('Login error:', error);
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false, // Don't redirect automatically
+      });
+
+      if (result?.error) {
+        // Auth failed
+        setError('Email o contraseña incorrectos');
+        setIsLoading(false);
+        return;
+      }
+
+      // Success! Redirect to callback URL or home
+      router.push(callbackUrl);
+      router.refresh(); // Refresh to update session state
+    } catch {
+      setError('Error al iniciar sesión. Intenta de nuevo.');
+      setIsLoading(false);
     }
   };
 
