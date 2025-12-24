@@ -1,0 +1,174 @@
+// ==============================================
+// RESTAURANT DETAIL VIEW - BEM Naming Convention
+// Block: restaurant-detail
+// ==============================================
+
+.restaurant-detail {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+
+  // Back link
+  &__back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #388e3c;
+    }
+  }
+
+  // Header
+  &__header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__title {
+    margin: 0 0 0.5rem;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  &__location {
+    margin: 0;
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  // Content sections
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__section {
+    padding: 1.5rem;
+    background: #fafafa;
+    border-radius: 12px;
+  }
+
+  &__section-title {
+    margin: 0 0 1rem;
+    color: #2c3e50;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  &__description {
+    margin: 0;
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  // Contact list
+  &__contact-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__contact-icon {
+    font-size: 1.25rem;
+  }
+
+  // Tags
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__tags-label {
+    color: #666;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+
+  &__tag {
+    padding: 0.25rem 0.75rem;
+    background: #4caf50;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.875rem;
+  }
+
+  // Price indicator
+  &__price {
+    font-size: 1.5rem;
+    color: #4caf50;
+    font-weight: 700;
+  }
+
+  &__price-inactive {
+    color: #ddd;
+  }
+
+  // Skeleton styles
+  &__skeleton-title {
+    height: 40px;
+    width: 60%;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  &__skeleton-text {
+    height: 20px;
+    width: 40%;
+    background: #e0e0e0;
+    border-radius: 4px;
+  }
+
+  &__skeleton-block {
+    height: 100px;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 8px;
+  }
+
+  &--skeleton {
+    animation: restaurant-detail-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes restaurant-detail-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+

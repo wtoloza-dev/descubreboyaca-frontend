@@ -1,15 +1,9 @@
 /**
  * Restaurant Type Definitions
  *
- * TUTORIAL: Why TypeScript Types?
- *
- * Types help you:
- * 1. Get autocomplete (IntelliSense) in your IDE
- * 2. Catch errors before runtime
- * 3. Document the data structure
- * 4. Refactor safely
- *
- * Think of it like a blueprint for your data!
+ * Types for restaurant data from the API.
+ * - Restaurant: Fields returned in list view
+ * - RestaurantDetail: All fields returned in detail view
  */
 
 /**
@@ -21,9 +15,19 @@ export interface Location {
 }
 
 /**
- * Single Restaurant object
+ * Social media links
+ */
+export interface SocialMedia {
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  tiktok?: string;
+}
+
+/**
+ * Restaurant object (list view)
  *
- * This matches EXACTLY what the API returns
+ * Fields returned when fetching multiple restaurants
  */
 export interface Restaurant {
   id: string;
@@ -43,6 +47,22 @@ export interface Restaurant {
 }
 
 /**
+ * Restaurant detail object (single view)
+ *
+ * All fields returned when fetching a single restaurant
+ */
+export interface RestaurantDetail extends Restaurant {
+  address: string;
+  postal_code: string | null;
+  country: string;
+  email: string | null;
+  website: string | null;
+  social_media: SocialMedia | null;
+  created_by: string;
+  updated_by: string;
+}
+
+/**
  * Pagination metadata
  */
 export interface Pagination {
@@ -52,13 +72,9 @@ export interface Pagination {
 }
 
 /**
- * API Response wrapper
- *
- * IMPORTANT: The API returns data wrapped in this structure!
- * The actual restaurants are in response.data, not at the root.
+ * API Response wrapper for list
  */
 export interface RestaurantsResponse {
   data: Restaurant[];
   pagination: Pagination;
 }
-

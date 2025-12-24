@@ -1,63 +1,55 @@
 /**
- * Restaurants Page - Route Level Component
+ * Restaurants Page - Server Component
  *
- * ARCHITECTURE LESSON:
- * This is the "Smart Component" - it handles:
- * ✅ Data fetching (uses our custom hook)
- * ✅ Loading states
- * ✅ Error handling
- * ✅ Business logic
- *
- * Then it passes clean data to the "Dumb Component" (View)
- *
- * WHY THIS PATTERN?
- * - Separation of concerns
- * - The View can be reused with different data sources
- * - Easier to test (mock data in View)
- * - Follows Next.js best practices
+ * Supports filtering via query params:
+ * - /restaurants              → All restaurants
+ * - /restaurants?city=Tunja   → Filtered by city
+ * - /restaurants?page=2       → Paginated
  */
 
-'use client'; // Need this because we're using hooks
-
-import { useGET } from '@/hooks';
-import { RestaurantsView } from '@/views/Restaurants';
+import { config } from '@/config';
 import type { RestaurantsResponse } from '@/types/restaurant.types';
+import { RestaurantsView } from '@/views/Restaurants';
 
-export default function RestaurantsPage() {
-  // 🎯 DATA FETCHING HAPPENS HERE (at the route level)
-  // Notice: We only pass the PATH, not the full URL!
-  // The hook automatically prepends config.apiUrl
-  //
-  // IMPORTANT: We specify the type <RestaurantsResponse>
-  // This tells TypeScript what structure to expect
-  const { data: response, loading, error } = useGET<RestaurantsResponse>('/api/v1/restaurants/');
+interface PageProps {
+  searchParams: Promise<{ city?: string; page?: string; page_size?: string }>;
+}
 
-  // HANDLE LOADING STATE
-  if (loading) {
-    return (
-      <div style={{ padding: '2rem' }}>
-        <h1>Restaurants</h1>
-        <p>Loading restaurants...</p>
-      </div>
-    );
+/**
+ * Fetch restaurants from API with query params
+ */
+async function getRestaurants(params: {
+  city?: string;
+  page?: string;
+  page_size?: string;
+}): Promise<RestaurantsResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (params.city) searchParams.set('city', params.city);
+  if (params.page) searchParams.set('page', params.page);
+  if (params.page_size) searchParams.set('page_size', params.page_size);
+
+  const query = searchParams.toString();
+  const url = `${config.apiUrl}/api/v1/restaurants/${query ? `?${query}` : ''}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status}`);
   }
 
-  // HANDLE ERROR STATE
-  if (error) {
-    return (
-      <div style={{ padding: '2rem' }}>
-        <h1>Restaurants</h1>
-        <p style={{ color: 'red' }}>Error: {error}</p>
-      </div>
-    );
-  }
+  return response.json();
+}
 
-  // PASS CLEAN DATA TO VIEW
-  // The view doesn't know or care where this data came from!
-  //
-  // IMPORTANT: Extract the restaurants from response.data
-  // The API wraps data like: { data: [...], pagination: {...} }
-  const restaurants = response?.data || [];
+/**
+ * Server Component
+ * Reads searchParams and fetches accordingly
+ */
+export default async function RestaurantsPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const { data: restaurants } = await getRestaurants(params);
 
-  return <RestaurantsView restaurants={restaurants} />;
+  return <RestaurantsView initialData={restaurants} currentCity={params.city} />;
 }

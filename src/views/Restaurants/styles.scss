@@ -1,78 +1,165 @@
-.restaurants-view {
+// ==============================================
+// RESTAURANTS VIEW - BEM Naming Convention
+// Block: restaurants
+// ==============================================
+
+.restaurants {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
 
-  h1 {
-    margin-bottom: 2rem;
+  // Elements
+  &__title {
+    margin-bottom: 1.5rem;
     color: #2c3e50;
     font-size: 2rem;
     text-align: center;
   }
 
-  .restaurants-list {
+  // Filters
+  &__filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  &__filter-label {
+    color: #555;
+    font-weight: 500;
+  }
+
+  &__filter-select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    min-width: 200px;
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: #4caf50;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #4caf50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    }
+  }
+
+  &__list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
-
-    .restaurant-card {
-      padding: 1.5rem;
-      border: 1px solid #e0e0e0;
-      border-radius: 12px;
-      background-color: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        border-color: #4CAF50;
-      }
-
-      h3 {
-        margin-bottom: 0.75rem;
-        color: #2c3e50;
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-
-      .description {
-        margin: 0.75rem 0;
-        color: #555;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        min-height: 3rem;
-      }
-
-      .location {
-        margin: 0.5rem 0;
-        padding: 0.5rem 0;
-        border-top: 1px solid #f0f0f0;
-
-        span {
-          color: #666;
-          font-size: 0.9rem;
-        }
-      }
-
-      .phone {
-        margin: 0.5rem 0;
-
-        span {
-          color: #4CAF50;
-          font-size: 0.9rem;
-          font-weight: 500;
-        }
-      }
-    }
   }
 
-  > p {
+  &__card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__empty {
     text-align: center;
     color: #999;
     font-size: 1.1rem;
     margin-top: 3rem;
   }
+
+  // Card Element
+  &__card {
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      border-color: #4caf50;
+    }
+
+    // Modifier: Skeleton loading state
+    &--skeleton {
+      animation: restaurants-pulse 1.5s ease-in-out infinite;
+
+      &:hover {
+        transform: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-color: #e0e0e0;
+      }
+    }
+  }
+
+  &__card-title {
+    margin-bottom: 0.75rem;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &__card-description {
+    margin: 0.75rem 0;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    min-height: 3rem;
+  }
+
+  &__card-location {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
+    border-top: 1px solid #f0f0f0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  &__card-phone {
+    margin: 0.5rem 0;
+    color: #4caf50;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  // Skeleton Elements (only used in loading state)
+  &__skeleton-title {
+    height: 24px;
+    width: 60%;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  &__skeleton-text {
+    height: 16px;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+    &--short {
+      width: 40%;
+    }
+  }
 }
 
+// Animation scoped to restaurants block
+@keyframes restaurants-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
